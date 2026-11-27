@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-27T07:18:52.855Z",
+  "runtime": "@mediapipe/tasks-genai@0.10.30",
+  "wasmAssets": [
+    {
+      "id": "genai-wasm-genai_wasm_internal.js",
+      "dest": "/wasm/genai/genai_wasm_internal.js",
+      "size": 336927,
+      "sha256": "6f04ba12e8d0d3ce209d8c8340d58f8de6bd98cc40283bf9e2d90826eaa2b5e2",
+      "source": "npm:@mediapipe/tasks-genai@0.10.30",
+      "license": "Apache-2.0",
+      "status": "ready"
+    },
+    {
+      "id": "genai-wasm-genai_wasm_internal.wasm",
+      "dest": "/wasm/genai/genai_wasm_internal.wasm",
+      "size": 27043022,
+      "sha256": "2248d72306014024f58db1e8b1c01ff41d29df2b0d1cd2de781e29c5d235a25d",
+      "source": "npm:@mediapipe/tasks-genai@0.10.30",
+      "license": "Apache-2.0",
+      "status": "ready"
+    },
+    {
+      "id": "genai-wasm-genai_wasm_module_internal.js",
+      "dest": "/wasm/genai/genai_wasm_module_internal.js",
+      "size": 336964,
+      "sha256": "de0788c60bc3362ce941cd2512dcbe0a8b03fd434be506271d00cf44682328ba",
+      "source": "npm:@mediapipe/tasks-genai@0.10.30",
+      "license": "Apache-2.0",
+      "status": "ready"
+    },
+    {
+      "id": "genai-wasm-genai_wasm_module_internal.wasm",
+      "dest": "/wasm/genai/genai_wasm_module_internal.wasm",
+      "size": 27043046,
+      "sha256": "8f153913130613bf9b38fa843178028946a2618e7d210823e73fec9ee88dab6a",
+      "source": "npm:@mediapipe/tasks-genai@0.10.30",
+      "license": "Apache-2.0",
+      "status": "ready"
+    },
+    {
+      "id": "genai-wasm-genai_wasm_nosimd_internal.js",
+      "dest": "/wasm/genai/genai_wasm_nosimd_internal.js",
+      "size": 336730,
+      "sha256": "9d7ce0f6e99230c187a3ab3eec2d90bad6d9f3ce8bb60e9a05cbc98982a55e51",
+      "source": "npm:@mediapipe/tasks-genai@0.10.30",
+      "license": "Apache-2.0",
+      "status": "ready"
+    },
+    {
+      "id": "genai-wasm-genai_wasm_nosimd_internal.wasm",
+      "dest": "/wasm/genai/genai_wasm_nosimd_internal.wasm",
+      "size": 26953605,
+      "sha256": "1179b2b3c790d6ed36a8c5efeb97b8e45a59eb42209fd47ae346f75003011b8e",
+      "source": "npm:@mediapipe/tasks-genai@0.10.30",
+      "license": "Apache-2.0",
+      "status": "ready"
+    }
+  ],
+  "model": {
+    "id": "gemma-3-4b-it-int4-web",
+    "modelId": "Gemma 3 4B Instruct (INT4 WebGPU)",
+    "repo": "litert-community/Gemma3-4B-IT",
+    "sourceUrl": "https://huggingface.co/litert-community/Gemma3-4B-IT/resolve/main/gemma3-4b-it-int4-web.task",
+    "dest": "/models/gemma3-4b-it-int4-web.task",
+    "license": "Gemma Terms of Use (gated repository)",
+    "runtimePackage": "@mediapipe/tasks-genai@0.10.30",
+    "size": 0,
+    "sha256": null,
+    "integritySource": "not-provisioned",
+    "status": "needs-assets",
+    "notes": "Gated Hugging Face repository. Accept Gemma license at https://huggingface.co/litert-community/Gemma3-4B-IT, authenticate with hf auth login, and place gemma3-4b-it-int4-web.task in public/models/ or select the local file in CipherMask Setup UI."
+  }
+}

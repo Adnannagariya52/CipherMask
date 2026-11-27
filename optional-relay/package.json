@@ -1,0 +1,14 @@
+{
+  "name": "ciphermask-optional-relay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Optional loopback-only Gemini credential relay for CipherMask (never required for strict-local mode).",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "zod": "^4.3.0"
+  }
+}
