@@ -23,6 +23,13 @@ public/models/*.gguf
 public/models/*.safetensors
 public/models/*.bin
 public/models/*.tmp
+# Generated browser runtimes are restored locally with npm run setup:assets
+# and npm run setup:models; keep the source submission lightweight.
+public/assets/ocr/
+public/assets/vision/
+public/assets/ner/
+public/assets/samples/
+public/wasm/genai/
 **/*.safetensors
 **/*.gguf
 public/assets/ner/models/**/onnx/*.onnx

@@ -524,11 +524,13 @@ Protected assets include original documents, prompts, images, CSV records, ident
 ```bash
 git clone https://github.com/Adnannagariya52/CipherMask.git
 cd CipherMask
-npm install
+npm ci
+npm run setup:assets
+npm run setup:models
 npm run dev
 ```
 
-Basic sanitization needs no model and no credentials.
+Basic sanitization needs no model and no credentials. Browser OCR, Vision, NER, and GenAI runtime binaries are intentionally excluded from the source submission to keep it below the 10 MB submission limit; the two setup commands above restore them locally from pinned packages and documented sources. Gemma weights remain excluded and must be supplied separately as described below.
 
 ### Enable local Gemma (optional)
 
