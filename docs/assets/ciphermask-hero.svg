@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 340" role="img" aria-labelledby="title description">
+  <title id="title">CipherMask V2</title>
+  <desc id="description">CipherMask V2: Autonomous Privacy Intelligence and CipherChat. Intelligence without exposure.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0B1B2E"/><stop offset="1" stop-color="#0A3B34"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#10B981"/><stop offset="1" stop-color="#34D399"/></linearGradient>
+  </defs>
+  <rect width="1280" height="340" rx="16" fill="url(#background)"/>
+  <g transform="translate(110 170)" fill="none" stroke="url(#accent)" stroke-width="5">
+    <path d="M0-105 82-72V8C82 62 44 96 0 112-44 96-82 62-82 8V-72Z"/>
+  </g>
+  <g transform="translate(64 140)"><rect width="92" height="14" rx="7" fill="#34D399"/><rect y="28" width="62" height="14" rx="7" fill="#6366F1"/><rect y="56" width="78" height="14" rx="7" fill="#34D399" opacity=".55"/></g>
+  <text x="250" y="150" fill="#fff" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="68" font-weight="700">CipherMask <tspan fill="#34D399">V2</tspan></text>
+  <text x="252" y="196" fill="#CBD5E1" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="26" font-weight="500">Autonomous Privacy Intelligence &amp; CipherChat</text>
+  <rect x="252" y="222" width="150" height="4" rx="2" fill="url(#accent)"/>
+  <text x="252" y="268" fill="#A7F3D0" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" font-style="italic">Intelligence without exposure.</text>
+  <text x="252" y="302" fill="#94A3B8" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18">The AI proposes. The code decides.</text>
+</svg>

@@ -507,12 +507,14 @@ export const CipherChat: React.FC = () => {
             sanitizedArtifact: artifact,
             scanSummary: `${fused.editFindings.length} finding(s) masked`,
           });
+          const outboundText = sanTxt.slice(0, 12_000);
+          const { sha256Hex: outboundSha256 } = await sha256Text(outboundText);
           textAttachmentsEnvelope.push({
             artifactId: artifact.artifactId,
             safeLabel: att.safeLabel,
             kind: 'txt',
-            sanitizedText: sanTxt.slice(0, 12_000),
-            sha256: sha256Hex,
+            sanitizedText: outboundText,
+            sha256: outboundSha256,
           });
         } else if (att.kind === 'csv' && att.rawText !== undefined) {
           const parsed = parseCsvSafe(att.rawText);
@@ -546,12 +548,14 @@ export const CipherChat: React.FC = () => {
             sanitizedArtifact: artifact,
             scanSummary: `${parsed.rows.length} CSV rows scanned & masked`,
           });
+          const outboundText = sanCsv.slice(0, 12_000);
+          const { sha256Hex: outboundSha256 } = await sha256Text(outboundText);
           textAttachmentsEnvelope.push({
             artifactId: artifact.artifactId,
             safeLabel: att.safeLabel,
             kind: 'csv',
-            sanitizedText: sanCsv.slice(0, 12_000),
-            sha256: sha256Hex,
+            sanitizedText: outboundText,
+            sha256: outboundSha256,
           });
         } else if (att.kind === 'image' && att.rawImageBytes) {
           const blob = new Blob([att.rawImageBytes.buffer as ArrayBuffer], { type: att.mime });

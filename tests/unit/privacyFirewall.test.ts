@@ -49,6 +49,7 @@ describe('Outbound Privacy Firewall & Collection ZIP', () => {
     expect(blockedRes.blockedReasons.some((r) => r.includes('Strict-local'))).toBe(true);
     expect(blockedRes.blockedReasons.some((r) => r.includes('remaining mandatory pattern'))).toBe(true);
     expect(blockedRes.blockedReasons.some((r) => r.includes('unmasked original'))).toBe(true);
+    expect(blockedRes.blockedReasons.some((r) => r.includes('hash mismatch'))).toBe(false);
 
     expect(() =>
       fw.approveRelease(blockedRes.reviewId, true, {
@@ -60,6 +61,44 @@ describe('Outbound Privacy Firewall & Collection ZIP', () => {
         model: 'gemini-2.5-flash',
       }),
     ).toThrow();
+  });
+
+  it('rejects attachments whose declared digest does not match the reviewed content', async () => {
+    const fw = new OutboundPrivacyFirewall();
+    const review = await fw.prepareRelease({
+      conversationId: 'c-hash',
+      provider: 'gemini',
+      model: 'gemini-2.5-flash',
+      transportMode: 'relay',
+      organizerPermitted: true,
+      providerTier: 'authorized-paid',
+      sourceRevisions: { main: 1 },
+      policyRevision: 1,
+      findingsRevision: 1,
+      transcriptRevision: 1,
+      scansComplete: true,
+      hasUnresolvedCriticalFindings: false,
+      knownOriginals: [],
+      envelope: {
+        schemaVersion: 1,
+        provider: 'gemini',
+        model: 'gemini-2.5-flash',
+        systemInstruction: '',
+        history: [],
+        currentPrompt: 'Summarize the sanitized incident.',
+        sanitizedAttachments: [{
+          artifactId: 'a-tampered',
+          safeLabel: 'incident.txt',
+          kind: 'txt',
+          sanitizedText: 'Sanitized incident details.',
+          sha256: '0'.repeat(64),
+        }],
+        sanitizedImages: [],
+      },
+    });
+
+    expect(review.canApprove).toBe(false);
+    expect(review.blockedReasons).toContain('Text attachment incident.txt hash mismatch.');
   });
 
   it('exports sanitized collection ZIP containing zero raw sentinels or vaults', async () => {

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { sha256Text } from '../engine/crypto/hash.ts';
+import { sha256Bytes, sha256Text } from '../engine/crypto/hash.ts';
 import { runDetectionPipeline } from '../engine/pipeline.ts';
 import { createDefaultPolicy } from '../engine/redaction.ts';
 import { detectImageSignature } from '../engine/vision/decode.ts';
@@ -207,13 +207,28 @@ export class OutboundPrivacyFirewall {
       }
     }
 
-    // Verify sanitized images have valid PNG/JPEG signatures and non-empty hashes
+    // Bind every reviewed artifact to its declared hash before approval. This prevents
+    // a stale or substituted attachment from being approved under a previous review.
+    for (const attachment of draft.envelope.sanitizedAttachments) {
+      const actualHash = (await sha256Text(attachment.sanitizedText)).sha256Hex;
+      if (actualHash !== attachment.sha256) {
+        blockedReasons.push(`Text attachment ${attachment.safeLabel} hash mismatch.`);
+      }
+    }
+
+    // Verify sanitized images have valid signatures, sizes, and content hashes.
     for (const img of draft.envelope.sanitizedImages) {
       try {
         const bytes = base64ToBytes(img.base64Data);
         const sig = detectImageSignature(bytes);
         if (sig !== img.mimeType) {
           blockedReasons.push(`Image attachment ${img.safeLabel} signature mismatch.`);
+        }
+        if (bytes.byteLength !== img.byteLength) {
+          blockedReasons.push(`Image attachment ${img.safeLabel} byte length mismatch.`);
+        }
+        if ((await sha256Bytes(bytes)) !== img.sha256) {
+          blockedReasons.push(`Image attachment ${img.safeLabel} hash mismatch.`);
         }
       } catch {
         blockedReasons.push(`Image attachment ${img.safeLabel} invalid base64 payload.`);

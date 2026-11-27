@@ -1,5 +1,9 @@
 # CipherMask V2 — Autonomous Privacy Intelligence & CipherChat
 
+<p align="center">
+  <img src="docs/assets/ciphermask-hero.svg" alt="CipherMask V2 — Autonomous Privacy Intelligence and CipherChat" width="100%">
+</p>
+
 **Tagline:** *Intelligence without exposure. Share the information, not the identity.*
 
 - **Live Web App (Firebase Hosting):** https://ciphermask-94dbd.web.app

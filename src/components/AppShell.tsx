@@ -96,10 +96,11 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
       </div>
 
       {mobileOpen && (
-        <div
+        <button
+          type="button"
           className="fixed inset-0 z-40 bg-[#101828]/30 backdrop-blur-xs md:hidden"
           onClick={() => setMobileOpen(false)}
-          aria-hidden="true"
+          aria-label="Close navigation menu"
         />
       )}
 

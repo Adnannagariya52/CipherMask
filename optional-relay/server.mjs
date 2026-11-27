@@ -28,6 +28,7 @@ loadLocalEnv();
 
 const ENABLED = process.env.ENABLE_CLOUD_CHAT === 'true';
 const PORT = Number(process.env.PORT || 8787);
+const MAX_BODY_BYTES = 8_000_000;
 const ALLOWED_ORIGINS = new Set(
   (process.env.ALLOWED_APP_ORIGIN || 'http://127.0.0.1:4173,http://localhost:4173')
     .split(',')
@@ -101,6 +102,8 @@ const OBVIOUS_PAN_RE = /\b[A-Z]{5}[0-9]{4}[A-Z]\b/;
 function jsonResponse(res, status, obj, origin) {
   res.writeHead(status, {
     'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff',
     'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -229,14 +232,24 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  let body = '';
+  const declaredLength = Number(req.headers['content-length'] || 0);
+  if (!Number.isSafeInteger(declaredLength) || declaredLength < 0 || declaredLength > MAX_BODY_BYTES) {
+    jsonResponse(res, 413, { error: 'Request envelope too large.' }, replyOrigin);
+    return;
+  }
+
+  const chunks = [];
+  let bodyBytes = 0;
   for await (const chunk of req) {
-    body += chunk;
-    if (body.length > 8_000_000) {
+    const bytes = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+    bodyBytes += bytes.byteLength;
+    if (bodyBytes > MAX_BODY_BYTES) {
       jsonResponse(res, 413, { error: 'Request envelope too large.' }, replyOrigin);
       return;
     }
+    chunks.push(bytes);
   }
+  const body = Buffer.concat(chunks, bodyBytes).toString('utf8');
 
   let parsedJson;
   try {
